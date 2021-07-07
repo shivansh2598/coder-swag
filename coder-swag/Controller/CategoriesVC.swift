@@ -30,4 +30,9 @@ class CategoriesVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             return CategoryCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let category = DataService.instance.getCategories()[indexPath.row]
+        performSegue(withIdentifier: "ProductVC", sender: category)
+    }
 }
