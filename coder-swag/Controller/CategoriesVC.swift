@@ -35,4 +35,11 @@ class CategoriesVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let category = DataService.instance.getCategories()[indexPath.row]
         performSegue(withIdentifier: "ProductVC", sender: category)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let productVC = segue.destination as? ProductVC {
+            assert(sender as? Category != nil)
+            productVC.initProducts(category: sender as! Category)
+        }
+    }
 }
