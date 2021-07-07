@@ -15,19 +15,27 @@ class ProductVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        productCollection.dataSource = self
+        productCollection.delegate = self
     }
     
     func initProducts(category : Category)
     {
         products = DataService.instance.getProducts(forCategoryTitle: category.title)
+        navigationItem.title = category.title
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        return products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as? ProductCell {
+            let product = products[indexPath.row]
+            cell.updateView(product : product)
+            return cell
+        }
+        
+        return ProductCell()
     }
 }
